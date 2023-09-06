@@ -10,21 +10,38 @@ export default defineConfig({
       enabled: true
     },
     manifest: {
-      name: 'My Awesome App',
-      short_name: 'MyApp',
-      description: 'My Awesome App description',
-      theme_color: '# ',
+      name: 'Insure 360',
+      short_name: 'Insure360',
+      description: 'Official insure 360 app',
+      theme_color: '#cbcbcb',
       icons: [
         {
-          src: 'pwa-192x192.png',
+          src: 'icons/android-chrome-192x192.png',
           sizes: '192x192',
-          type: 'image/png'
+          type: 'image/png',
+          purpose: 'any maskable'
+
         },
         {
-          src: 'pwa-512x512.png',
+          src: 'icons/android-chrome-512x512.png',
           sizes: '512x512',
-          type: 'image/png'
-        }
+          type: 'image/png',
+          purpose: 'any maskable'
+        },
+
+        {
+          src: 'icons/favicon-16x16.png',
+          sizes: '16x16',
+          type: 'image/png',
+          purpose: 'any maskable'
+        },
+        {
+          src: 'icons/favicon-32x32.png',
+          sizes: '32x32',
+          type: 'image/png',
+          purpose: 'any maskable'
+
+        },
       ],
       start_url: "/",
       display: "fullscreen",
