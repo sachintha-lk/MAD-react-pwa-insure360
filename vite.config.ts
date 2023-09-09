@@ -16,36 +16,31 @@ export default defineConfig({
       theme_color: '#cbcbcb',
       icons: [
         {
-          src: 'icons/android-chrome-192x192.png',
-          sizes: '192x192',
-          type: 'image/png',
-          purpose: 'any maskable'
-
+          src: 'icons/pwa-64x64.png',
+          sizes: '64x64',
+          type: 'image/png'
         },
         {
-          src: 'icons/android-chrome-512x512.png',
+          src: 'icons/pwa-192x192.png',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: 'icons/pwa-512x512.png',
           sizes: '512x512',
           type: 'image/png',
-          purpose: 'any maskable'
-        },
-
-        {
-          src: 'icons/favicon-16x16.png',
-          sizes: '16x16',
-          type: 'image/png',
-          purpose: 'any maskable'
+          purpose: 'any'  
         },
         {
-          src: 'icons/favicon-32x32.png',
-          sizes: '32x32',
+          src: 'icons/maskable-icon-512x512.png',
+          sizes: '512x512',
           type: 'image/png',
-          purpose: 'any maskable'
-
-        },
+          purpose: 'maskable'
+        }
       ],
       start_url: "/",
       display: "standalone",
-      background_color: "#B12A34"
+      background_color: "#284dff"
     }
   })],
 })

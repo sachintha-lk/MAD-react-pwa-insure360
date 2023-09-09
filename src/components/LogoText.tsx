@@ -1,6 +1,6 @@
 function LogoText() {
   return (
-    <div className="grid grid-cols-1 bg-gradient-to-r text-center lg:grid-cols-2">
+    <div className=" bg-gradient-to-r text-center ">
       <span className="mx-1 bg-gradient-to-r from-blue-600 to-blue-900 bg-clip-text pb-0 text-[40px] text-transparent">
         Insure
       </span>

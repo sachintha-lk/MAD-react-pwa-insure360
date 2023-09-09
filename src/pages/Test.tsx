@@ -7,7 +7,7 @@ function Test() {
   };
 
   return (
-    <div className="mx-auto mt-2 w-9/12">
+    <div className="mx-auto mt-10 w-9/12">
       <Button children="Login" variant="primary" onClick={handleClick} />
       <br />
       <Button children="Sign Up" variant="secondary" onClick={handleClick} />
