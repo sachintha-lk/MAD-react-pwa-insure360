@@ -1,12 +1,13 @@
-// import { Button, Text } from "@chakra-ui/react";
+import { Routes, Route } from "react-router-dom";
+import Test from "./pages/Test";
 
 function App() {
   return (
-    <div className="bg-sky-500 h-screen">
-      <h1 className="text-4xl font-bold text-center text-white mt-14">
-        Hello World!
-      </h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<h1>Home</h1>} />
+      <Route path="about" element={<h1>About</h1>} />
+      <Route path="test" element={<Test />} />
+    </Routes>
   );
 }
 
