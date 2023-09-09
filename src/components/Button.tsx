@@ -16,7 +16,7 @@ function Button({
   variant = "primary",
   ...props
 }: ButtonProps) {
-  let buttonClassName = `font-medium px-5 py-2 mr-2 mb-2 rounded-md ${
+  let buttonClassName = `mb-2 mr-2 rounded-md px-5 py-2 font-medium ${
     variant === "primary" ? "text-white" : "text-gray-200"
   }`;
 

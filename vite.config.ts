@@ -44,7 +44,7 @@ export default defineConfig({
         },
       ],
       start_url: "/",
-      display: "fullscreen",
+      display: "standalone",
       background_color: "#B12A34"
     }
   })],
