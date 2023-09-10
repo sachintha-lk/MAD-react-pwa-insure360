@@ -8,40 +8,43 @@ interface ButtonProps {
     | "danger"
     | "success"
     | "warning";
+  className?: string;
 }
 
 function Button({
   children,
   onClick,
   variant = "primary",
+  className,
   ...props
 }: ButtonProps) {
-  let buttonClassName = `mb-2 mr-2 rounded-md px-5 py-2 font-medium ${
-    variant === "primary" ? "text-white" : "text-gray-200"
-  }`;
+  let buttonClassName =
+    "mt-2 rounded-md px-5 py-2 font-medium text-lg hover:shadow-sm";
 
   switch (variant) {
     case "primary":
-      buttonClassName += ` bg-gradient-to-br from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 hover:shadow-sm`;
+      buttonClassName += ` bg-gradient-to-br from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-gray-50 hover:text-white`;
       break;
     case "secondary":
-      buttonClassName += ` bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 hover:shadow-sm`;
+      buttonClassName += ` bg-gray-200 border border-gray-300 hover:border-gray-400 hover:bg-gray-300 text-gray-600 hover:text-gray-800`;
       break;
     case "tertiary":
-      buttonClassName += ` bg-transparent text-gray-500  hover:text-gray-600 border border-1 border-gray-500 hover:border-gray-600 hover:bg-gray-100 hover:shadow-sm`;
+      buttonClassName += ` bg-transparent hover:bg-gray-100 text-gray-600  hover:text-gray-700 border border border-gray-600 hover:border-gray-600`;
       break;
     case "danger":
-      buttonClassName += ` bg-gradient-to-br from-red-700 to-red-800 hover:from-red-800 hover:to-red-900 hover:shadow-sm`;
+      buttonClassName += ` bg-gradient-to-br from-red-700 to-red-800 hover:from-red-800 hover:to-red-900 text-gray-50`;
       break;
     case "success":
-      buttonClassName += ` bg-gradient-to-br from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 hover:shadow-sm`;
+      buttonClassName += ` bg-gradient-to-br from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-gray-50`;
       break;
     case "warning":
-      buttonClassName += ` bg-gradient-to-br from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 hover:shadow-sm`;
+      buttonClassName += ` bg-gradient-to-br from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-gray-50`;
       break;
     default:
       break;
   }
+
+  buttonClassName += ` ${className}`;
 
   return (
     <button className={buttonClassName} onClick={onClick} {...props}>
