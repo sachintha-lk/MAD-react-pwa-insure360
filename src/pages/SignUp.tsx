@@ -1,22 +1,27 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Heading1 from "../components/Heading1";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
-
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-function Login() {
+function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
+  const handleSignUp = () => {
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("user", user);
-        alert("Logged In!");
+        alert("Signed Up!");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -26,17 +31,21 @@ function Login() {
       });
   };
 
-  const handleEmailChange = (e: any) => {
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const handlePasswordChange = (e: any) => {
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handleConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
   };
 
   return (
     <div className="flex h-4/5  flex-col items-center justify-center">
-      <Heading1 className="text-center">Login</Heading1>
+      <Heading1 className="text-center">SignUp</Heading1>
       <InputField
         label="Email"
         placeholder="Email"
@@ -60,23 +69,34 @@ function Login() {
         required={true}
         showRequiredStar={false}
       />
+
+      <InputField
+        label="Confirm Password"
+        placeholder="Confirm Password"
+        name="confirm-password"
+        onChange={handleConfirmPasswordChange}
+        type="password"
+        value={confirmPassword}
+        width="w-10/12 md:w-1/2 lg:w-1/4"
+        required={true}
+        showRequiredStar={false}
+      />
       <span className="my-1"></span>
 
       <Button
-        children="Login"
+        children="Sign Up"
         variant="primary"
-        className="mt-3 w-10/12 md:w-1/2 lg:w-1/4"
-        onClick={handleLogin}
+        className="w-10/12 md:w-1/2 lg:w-1/4"
+        onClick={handleSignUp}
       />
-
       <span className="mt-2 text-sm text-slate-800">
-        Don't have an account?
+        Already have an account?
       </span>
-      <Link to="/signup" className="m-0 w-10/12 p-0 md:w-1/2 lg:w-1/4">
-        <Button children="Sign Up" variant="secondary" className=" w-full" />
+      <Link to="/login" className="w-10/12 md:w-1/2 lg:w-1/4">
+        <Button children="Login" variant="secondary" className=" w-full" />
       </Link>
     </div>
   );
 }
 
-export default Login;
+export default SignUp;
