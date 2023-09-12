@@ -45,7 +45,7 @@ function SignUp() {
 
   return (
     <div className="flex h-4/5  flex-col items-center justify-center">
-      <Heading1 className="text-center">SignUp</Heading1>
+      <Heading1 className="text-center">Sign Up</Heading1>
       <InputField
         label="Email"
         placeholder="Email"

@@ -41,6 +41,10 @@ export default defineConfig({
       start_url: "/",
       display: "standalone",
       background_color: "#284dff"
-    }
+    },
+   
   })],
+  server: {
+    port: 3000
+  }
 })
