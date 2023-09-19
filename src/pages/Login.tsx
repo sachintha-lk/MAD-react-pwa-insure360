@@ -2,6 +2,7 @@ import { useState } from "react";
 import Heading1 from "../components/Heading1";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
+import SignInWithGoogleButton from "../components/SignInWithGoogleButton";
 import { Link } from "react-router-dom";
 
 import { auth } from "../firebase";
@@ -75,6 +76,18 @@ function Login() {
       <Link to="/signup" className="m-0 w-10/12 p-0 md:w-1/2 lg:w-1/4">
         <Button children="Sign Up" variant="secondary" className=" w-full" />
       </Link>
+
+      <span className="my-2">
+        <SignInWithGoogleButton />
+      </span>
+
+      <button
+        onClick={() => {
+          console.log(auth.currentUser?.email);
+        }}
+      >
+        dfsdf
+      </button>
     </div>
   );
 }
