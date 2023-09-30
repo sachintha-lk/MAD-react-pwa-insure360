@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 
 interface InputFieldProps {
   label: string;
-  type: "text" | "number" | "email" | "password";
+  type: "text" | "number" | "email" | "password" | "date" | "time" | "textarea";
   name: string;
   value: string;
   error?: string;

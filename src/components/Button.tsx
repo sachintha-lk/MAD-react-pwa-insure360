@@ -17,7 +17,7 @@ function Button({
   variant = "primary",
   className,
   ...props
-}: ButtonProps) {
+}: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   let buttonClassName =
     "block px-12 mt-3 rounded-md px-5 py-3 font-medium text-md hover:shadow-sm";
 

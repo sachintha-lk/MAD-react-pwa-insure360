@@ -1,6 +1,6 @@
 import Heading1 from "../components/Heading1";
 
-function Dashboard() {
+function Vehicles() {
   return (
     <div
       className="
@@ -12,11 +12,9 @@ function Dashboard() {
     justify-center
   "
     >
-      <Heading1 className="text-center">Dashboard</Heading1>
-
-      <p className="text-center">Welcome to the dashboard!</p>
+      <Heading1 className="text-center">Vehicles</Heading1>
     </div>
   );
 }
 
-export default Dashboard;
+export default Vehicles;

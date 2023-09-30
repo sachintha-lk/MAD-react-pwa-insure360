@@ -4,6 +4,7 @@ import LogoText from "../LogoText";
 import NavBarLink from "./NavBarLink";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
+import { useOnClickOutside } from "usehooks-ts";
 
 import { AuthContext } from "../../context/AuthProvider";
 
@@ -12,6 +13,14 @@ function NavBar() {
   const [isMobile, setIsMobile] = useState(false);
   const menuRef = useRef(null);
   const { user, setUser } = useContext(AuthContext)!;
+
+  const handleClickOutside = () => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  useOnClickOutside(menuRef, handleClickOutside);
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,24 +33,6 @@ function NavBar() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  // useEffect(() => {
-  //   const closeMenu = (event: any) => {
-  //     if (
-  //       isMenuOpen &&
-  //       menuRef.current &&
-  //       (menuRef.current as HTMLElement).contains(event.target)
-  //     ) {
-  //       setIsMenuOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("click", closeMenu);
-
-  //   return () => {
-  //     document.removeEventListener("click", closeMenu);
-  //   };
-  // }, [isMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -75,10 +66,31 @@ function NavBar() {
               onClick={handleMenuItemClick}
             />
           </li>
-          <li className="block w-full px-4 py-2 text-center text-xl font-medium text-white md:text-blue-800">
-            {user?.displayName}
+          <li>
+            <NavBarLink
+              to="/dashboard"
+              children="Dashboard"
+              onClick={handleMenuItemClick}
+            />
           </li>
-          {/* || user.email */}
+          <li>
+            <NavBarLink
+              to="/vehicles"
+              children="Vehicles"
+              onClick={handleMenuItemClick}
+            />
+          </li>
+          <li>
+            <NavBarLink
+              to="/reports"
+              children="Reports"
+              onClick={handleMenuItemClick}
+            />
+          </li>
+
+          <li className="block w-full px-4 py-2 text-center text-xl font-medium text-white md:text-blue-800">
+            {user?.displayName || user.email}
+          </li>
 
           <button
             className="block w-full px-4 py-2 text-center text-xl font-medium text-white md:text-blue-800"
@@ -112,7 +124,7 @@ function NavBar() {
   );
 
   return (
-    <nav className="absolute z-50 w-full  bg-white">
+    <nav className=" z-50 w-full  bg-white">
       <div className="mx-auto flex w-full items-center justify-between md:w-11/12">
         <div className="ml-5 flex items-center">
           <Link to="/" children={<LogoText />} />
@@ -132,8 +144,8 @@ function NavBar() {
         <ul
           ref={menuRef}
           className={`${
-            isMenuOpen ? "block" : "hidden"
-          } mt-4 flex flex-col space-y-2 bg-gradient-to-r from-blue-700 to-blue-800 `}
+            isMenuOpen ? "" : "hidden"
+          } absolute z-50 mt-4 flex w-full flex-col space-y-2 bg-gradient-to-r from-blue-700 to-blue-800 `}
         >
           {navLinks}
         </ul>

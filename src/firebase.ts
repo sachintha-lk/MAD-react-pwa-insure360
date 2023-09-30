@@ -1,6 +1,7 @@
 
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+// import { getMessaging, getToken  } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCzLc7jfFA3RFld-s0WlThm1wa6rHAYzuo",
@@ -28,6 +29,37 @@ function signInWithGoogle() {
       throw error;
     });
 }
+
+// const messaging = getMessaging(app);
+// export const requestPermission = () => {
+//   console.log('Requesting permission...');
+//   Notification.requestPermission().then((permission) => {
+//     if (permission === 'granted') {
+//       console.log('Notification permission granted.');
+     
+//       getToken(messaging, 
+//         {vapidKey: "BCdkU0d9TBfELKYwp9VYDCT-p-Fq1Z5nfyMdhLJnv6zYUCRBUZUsReloFGYyqBTXBj6kjY9RhdTGeCQhII2q_sI" }
+//       ).then((currentToken) => {
+//         if (currentToken) {
+//           console.log('current token for client: ', currentToken);
+          
+//         } else {
+//           console.log('No registration token available. Request permission to generate one.');
+          
+//         }
+//       }
+//       ).catch((err) => {
+//         console.log('An error occurred while retrieving client token. ', err);
+      
+//       });
+//     }
+//   }
+//   ).catch((err) => {
+//     console.log('Unable to get permission to notify.', err);
+//   });
+// }
+
+
 
 export { signInWithGoogle };
 export default app;;

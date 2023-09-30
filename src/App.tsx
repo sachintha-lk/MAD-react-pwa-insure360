@@ -8,8 +8,16 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoutes from "./components/ProtectedRoutes";
+import Vehicles from "./pages/Vehicles";
+import NewVehicle from "./pages/NewVehicle";
+import Reports from "./pages/Reports";
+import Report from "./pages/Report";
+
+// import "./../public/firebase-messaging-sw.js";
+// import { requestPermission } from "./firebase.js";
 
 function App() {
+  // requestPermission();
   return (
     <div>
       <NavBar />
@@ -22,9 +30,10 @@ function App() {
 
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/report" element={<Dashboard />} />
-          <Route path="/reports" element={<Dashboard />} />
-          <Route path="/policies" element={<Dashboard />} />
+          <Route path="/vehicles" element={<Vehicles />} />
+          <Route path="/vehicles/new" element={<NewVehicle />} />
+          <Route path="/report" element={<Report />} />
+          <Route path="/reports" element={<Reports />} />
           <Route path="/newpolicy" element={<Dashboard />} />
         </Route>
       </Routes>
