@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
-import backgroundImage from "./../assets/images/background-image.jpg";
+import backgroundImage from "./../../public/images/background-image.jpg";
 
 function Home() {
   return (

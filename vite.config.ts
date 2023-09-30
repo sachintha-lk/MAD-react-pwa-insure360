@@ -12,6 +12,9 @@ export default defineConfig({
     devOptions: {
       enabled: true
     },
+    includeAssets: [
+      "**/*",
+    ],
     manifest: {
       name: 'Insure 360',
       short_name: 'Insure360',
