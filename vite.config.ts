@@ -4,10 +4,11 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(),  VitePWA({
+  plugins: [react(),  VitePWA(    
+    {
     registerType: 'autoUpdate',
     workbox: {
-      globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+      globPatterns: ['**/*'],  // cache all the imports
     },  
     devOptions: {
       enabled: true
@@ -15,11 +16,13 @@ export default defineConfig({
     includeAssets: [
       "**/*",
     ],
+    
     manifest: {
       name: 'Insure 360',
       short_name: 'Insure360',
       description: 'Official insure 360 app',
       theme_color: '#cbcbcb',
+
       icons: [
         {
           src: 'icons/pwa-64x64.png',
@@ -44,6 +47,7 @@ export default defineConfig({
           purpose: 'maskable'
         }
       ],
+      scope: "/",
       start_url: "/",
       display: "standalone",
       background_color: "#284dff"
