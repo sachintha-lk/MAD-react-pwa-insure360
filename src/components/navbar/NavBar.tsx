@@ -12,11 +12,14 @@ function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const menuRef = useRef(null);
+  const menuBtnRef = useRef(null);
   const { user, setUser } = useContext(AuthContext)!;
 
   const handleClickOutside = () => {
     if (isMenuOpen) {
-      setIsMenuOpen(false);
+      if (!menuBtnRef.current) {
+        toggleMenu();
+      }
     }
   };
 
@@ -131,6 +134,7 @@ function NavBar() {
         </div>
         {isMobile ? (
           <button
+            ref={menuBtnRef}
             className="mr-5 text-2xl focus:outline-none md:hidden"
             onClick={toggleMenu}
           >
