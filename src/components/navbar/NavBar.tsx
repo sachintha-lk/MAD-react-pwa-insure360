@@ -1,14 +1,17 @@
+import { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import LogoText from "../LogoText";
 import NavBarLink from "./NavBarLink";
-import { useState, useEffect } from "react";
-
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
+
+import { AuthContext } from "../../context/AuthProvider";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const menuRef = useRef(null);
+  const { user, setUser } = useContext(AuthContext)!;
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,6 +25,24 @@ function NavBar() {
     };
   }, []);
 
+  // useEffect(() => {
+  //   const closeMenu = (event: any) => {
+  //     if (
+  //       isMenuOpen &&
+  //       menuRef.current &&
+  //       (menuRef.current as HTMLElement).contains(event.target)
+  //     ) {
+  //       setIsMenuOpen(false);
+  //     }
+  //   };
+
+  //   document.addEventListener("click", closeMenu);
+
+  //   return () => {
+  //     document.removeEventListener("click", closeMenu);
+  //   };
+  // }, [isMenuOpen]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -29,28 +50,42 @@ function NavBar() {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        alert("Signed Out!");
+        setUser(undefined);
       })
       .catch((error) => {
         alert(error.message);
       });
   };
 
+  const handleMenuItemClick = () => {
+    if (isMobile) {
+      toggleMenu();
+    }
+  };
+
   // Define your navigation links here
   const navLinks = (
     <>
-      {auth?.currentUser ? (
+      {user ? (
         <>
           <li>
-            <NavBarLink to="/test" children="Test" />
+            <NavBarLink
+              to="/test"
+              children="Test"
+              onClick={handleMenuItemClick}
+            />
           </li>
           <li className="block w-full px-4 py-2 text-center text-xl font-medium text-white md:text-blue-800">
-            {auth?.currentUser?.email}
+            {user?.displayName}
           </li>
+          {/* || user.email */}
 
           <button
             className="block w-full px-4 py-2 text-center text-xl font-medium text-white md:text-blue-800"
-            onClick={handleSignOut}
+            onClick={() => {
+              handleSignOut();
+              handleMenuItemClick();
+            }}
           >
             Log Out
           </button>
@@ -58,10 +93,18 @@ function NavBar() {
       ) : (
         <>
           <li>
-            <NavBarLink to="/login" children="Login" />
+            <NavBarLink
+              to="/login"
+              children="Login"
+              onClick={handleMenuItemClick}
+            />
           </li>
           <li>
-            <NavBarLink to="/signup" children="Sign Up" />
+            <NavBarLink
+              to="/signup"
+              children="Sign Up"
+              onClick={handleMenuItemClick}
+            />
           </li>
         </>
       )}
@@ -87,6 +130,7 @@ function NavBar() {
       </div>
       {isMobile && (
         <ul
+          ref={menuRef}
           className={`${
             isMenuOpen ? "block" : "hidden"
           } mt-4 flex flex-col space-y-2 bg-gradient-to-r from-blue-700 to-blue-800 `}

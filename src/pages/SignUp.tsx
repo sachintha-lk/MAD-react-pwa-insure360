@@ -1,15 +1,24 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import Heading1 from "../components/Heading1";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
+import { AuthContext } from "../context/AuthProvider";
+
 function SignUp() {
+  const { user, setUser } = useContext(AuthContext)!;
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSignUp = () => {
     if (password !== confirmPassword) {
@@ -19,15 +28,14 @@ function SignUp() {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("user", user);
-        alert("Signed Up!");
+        setUser(userCredential.user);
+        <Navigate to={"/dashboard"} replace />;
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("error", errorCode, errorMessage);
-        alert(errorMessage);
+        setErrorMessage(errorMessage);
       });
   };
 
@@ -46,6 +54,7 @@ function SignUp() {
   return (
     <div className="flex h-4/5  flex-col items-center justify-center">
       <Heading1 className="text-center">Sign Up</Heading1>
+      {errorMessage && <span className="text-red-500">{errorMessage}</span>}
       <InputField
         label="Email"
         placeholder="Email"

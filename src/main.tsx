@@ -4,6 +4,8 @@ import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import { registerSW } from "virtual:pwa-register";
+import AuthProvider from "./context/AuthProvider.tsx";
+
 // import { ChakraProvider } from "@chakra-ui/react";
 
 const updateSW = registerSW({
@@ -16,8 +18,10 @@ const updateSW = registerSW({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
 );

@@ -2,8 +2,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-// import { getAnalytics } from "firebase/analytics";
-
 const firebaseConfig = {
   apiKey: "AIzaSyCzLc7jfFA3RFld-s0WlThm1wa6rHAYzuo",
   authDomain: "insure-360-pwa.firebaseapp.com",
@@ -16,21 +14,21 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
 
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
-export const signInWithGoogle = () => {
-  signInWithPopup(auth, googleProvider)
+function signInWithGoogle() {
+  return signInWithPopup(auth, googleProvider)
     .then((result) => {
-      console.log("Success", result);
-      // const user = result.user;
+      return result.user; 
     })
     .catch((error) => {
       console.log("Error", error);
-      
+      throw error;
     });
 }
-export default app;
+
+export { signInWithGoogle };
+export default app;;
 

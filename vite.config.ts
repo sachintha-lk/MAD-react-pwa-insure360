@@ -9,6 +9,9 @@ export default defineConfig({
     registerType: 'autoUpdate',
     workbox: {
       globPatterns: ['**/*'],  // cache all the imports
+      // runtimeCaching: [
+      
+      // ],
     },  
     devOptions: {
       enabled: true

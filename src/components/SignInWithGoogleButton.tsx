@@ -1,9 +1,32 @@
 import { signInWithGoogle } from "../firebase";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthProvider";
+import { Navigate } from "react-router-dom";
+import { User } from "firebase/auth";
+
+async function handleSignInWithGoogle(
+  user: User | undefined,
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>
+) {
+  try {
+    setUser(await signInWithGoogle());
+
+    if (user) {
+      return <Navigate to="/dashboard" replace />;
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
+}
 
 function SignInWithGoogleButton() {
+  const { user, setUser } = useContext(AuthContext)!;
+
   return (
     <button
-      onClick={signInWithGoogle}
+      onClick={() => {
+        handleSignInWithGoogle(user, setUser);
+      }}
       className="relative flex w-96 flex-none items-center justify-center rounded-lg border-2 border-gray-600 px-3 py-2 font-medium hover:bg-slate-100 md:px-4 md:py-3"
     >
       <span className="absolute left-4">
