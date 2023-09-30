@@ -69,8 +69,8 @@ function NavBar() {
   );
 
   return (
-    <nav className="bg-white">
-      <div className="flex items-center justify-between">
+    <nav className="absolute z-50 w-full  bg-white">
+      <div className="mx-auto flex w-full items-center justify-between md:w-11/12">
         <div className="ml-5 flex items-center">
           <Link to="/" children={<LogoText />} />
         </div>

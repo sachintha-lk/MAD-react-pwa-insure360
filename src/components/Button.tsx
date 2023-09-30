@@ -19,7 +19,7 @@ function Button({
   ...props
 }: ButtonProps) {
   let buttonClassName =
-    "mt-3 rounded-md px-5 py-2 font-medium text-lg hover:shadow-sm";
+    "block px-12 mt-3 rounded-md px-5 py-3 font-medium text-md hover:shadow-sm";
 
   switch (variant) {
     case "primary":
@@ -29,7 +29,7 @@ function Button({
       buttonClassName += ` bg-gray-200 border border-gray-300 hover:border-gray-400 hover:bg-gray-300 text-gray-600 hover:text-gray-800`;
       break;
     case "tertiary":
-      buttonClassName += ` bg-transparent hover:bg-gray-100 text-gray-600  hover:text-gray-700 border border border-gray-600 hover:border-gray-600`;
+      buttonClassName += ` bg-transparent hover:bg-gray-50 text-gray-600  hover:text-gray-700 border border border-gray-600 hover:border-gray-600`;
       break;
     case "danger":
       buttonClassName += ` bg-gradient-to-br from-red-700 to-red-800 hover:from-red-800 hover:to-red-900 text-gray-50`;

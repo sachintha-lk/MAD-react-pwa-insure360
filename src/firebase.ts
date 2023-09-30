@@ -25,7 +25,7 @@ export const signInWithGoogle = () => {
   signInWithPopup(auth, googleProvider)
     .then((result) => {
       console.log("Success", result);
-      const user = result.user;
+      // const user = result.user;
     })
     .catch((error) => {
       console.log("Error", error);
