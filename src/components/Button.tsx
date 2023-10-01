@@ -45,9 +45,15 @@ function Button({
   }
 
   buttonClassName += ` ${className}`;
+  function onBtnClick() {
+    navigator.vibrate([45, 100, 82, 96]);
+    if (onClick) {
+      onClick();
+    }
+  }
 
   return (
-    <button className={buttonClassName} onClick={onClick} {...props}>
+    <button className={buttonClassName} onClick={onBtnClick} {...props}>
       {children}
     </button>
   );

@@ -1,18 +1,41 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import InputField from "./InputField";
 import Button from "./Button";
+
+import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
+import { AuthContext } from "../context/AuthProvider";
+import TakePhoto from "./TakePhoto";
+import {
+  getStorage,
+  ref,
+  StorageReference,
+  uploadString,
+} from "firebase/storage";
 
 // typing for vehicle data
 interface VehicleData {
   make: string;
   model: string;
   year: string;
-  registration: string;
+  registrationNumber: string;
   vinNumber: string;
   mileage: string;
 }
+
+// Add a new document in collection "cities"
+
 function NewVehicleForm() {
-  const [vehicleData, setVehicleData] = useState({} as VehicleData);
+  const [vehicleData, setVehicleData] = useState({
+    make: "",
+    model: "",
+    year: "",
+    registrationNumber: "",
+    vinNumber: "",
+    mileage: "",
+  } as VehicleData);
+
+  const { user } = useContext(AuthContext)!;
 
   // insurance
   // registration
@@ -37,16 +60,79 @@ function NewVehicleForm() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const [imageData, setImageData] = useState<string>("" as string);
+
+  const handleImageCaptured = (imageData: string) => {
+    // Handle the captured image data here, e.g., set it in state
+    console.log("Captured image data:", imageData);
+    setImageData(imageData);
+  };
+
+  const handleImageUpload = async () => {
+    const base64ImageString = imageData;
+    const folderName = "vehicles";
+    const fileName = `${
+      vehicleData.registrationNumber
+    }-${user?.uid}-${Math.floor(Math.random() * 100000000)}.png`;
+
+    const storage = getStorage();
+    const storageRef = ref(storage);
+    const imageRef: StorageReference = ref(
+      storageRef,
+      `${folderName}/${fileName}`
+    );
+
+    try {
+      await uploadString(imageRef, base64ImageString, "data_url");
+      console.log("Uploaded the image successfully!");
+      return fileName;
+    } catch (error) {
+      console.error("Error uploading the image:", error);
+    }
+  };
+
+  const handleSubmitClick = async () => {
+    // save image to storage
+    if (imageData === "") {
+      alert("Please take a photo of your vehicle");
+      return;
+    }
+
+    const imageFileName = await handleImageUpload();
+
+    await addDoc(collection(db, "vehicles"), {
+      creationTimeStamp: Timestamp.now(),
+      userId: user?.uid,
+      make: vehicleData.make,
+      model: vehicleData.model,
+      year: vehicleData.year,
+      registrationNumber: vehicleData.registrationNumber,
+      vinNumber: vehicleData.vinNumber,
+      mileage: vehicleData.mileage,
+      imageFileName: imageFileName,
+    })
+      .then(() => {
+        alert("Vehicle added successfully");
+        setVehicleData({
+          make: "",
+          model: "",
+          year: "",
+          registrationNumber: "",
+          vinNumber: "",
+          mileage: "",
+        });
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   const inputFormWidth = "w-full";
-
+  handleImageUpload();
   return (
     <div className="flex w-10/12 flex-col items-center justify-center md:w-5/12">
       <h2 className="text-2xl font-bold">Add New Vehicle</h2>
-      <form onSubmit={handleSubmit} className="mt-4 w-full">
+      <div className="mt-4 w-full">
         <div className="mb-4">
           <InputField
             type="text"
@@ -86,12 +172,12 @@ function NewVehicleForm() {
         <div className="mb-4">
           <InputField
             type="text"
-            label="Registration"
-            name="registration"
-            value={vehicleData.registration}
+            label="Registration Number"
+            name="registrationNumber"
+            value={vehicleData.registrationNumber}
             onChange={handleInputChange}
             required
-            placeholder={"Vehicle Registration"}
+            placeholder={"Registration Number"}
             width={inputFormWidth}
           />
         </div>
@@ -99,7 +185,7 @@ function NewVehicleForm() {
           <InputField
             type="text"
             label="VIN Number"
-            name="insurance"
+            name="vinNumber"
             value={vehicleData.vinNumber}
             onChange={handleInputChange}
             required
@@ -109,19 +195,20 @@ function NewVehicleForm() {
         </div>
         <div className="mb-4">
           <InputField
-            type="text"
+            type="number"
             label="Mileage"
             name="mileage"
             value={vehicleData.mileage}
             onChange={handleInputChange}
             required
-            placeholder={"Vehicle Mileage"}
+            placeholder={"Vehicle Mileage Km"}
             width={inputFormWidth}
           />
         </div>
+        <TakePhoto onImageCaptured={handleImageCaptured} />
 
-        <Button type="submit">Add Vehicle</Button>
-      </form>
+        <Button onClick={handleSubmitClick}>Add Vehicle</Button>
+      </div>
     </div>
   );
 }

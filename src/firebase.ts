@@ -1,6 +1,12 @@
 
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
+import { getFirestore } from "firebase/firestore";
+
+import { getStorage } from "firebase/storage";
+
+
 // import { getMessaging, getToken  } from "firebase/messaging";
 
 const firebaseConfig = {
@@ -18,6 +24,11 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
+export const db = getFirestore(app);
+
+export const storage = getStorage(app);
+
+
 
 function signInWithGoogle() {
   return signInWithPopup(auth, googleProvider)

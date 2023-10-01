@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import InputField from "./InputField";
 import GetLocation from "./GetLocation";
 import Button from "./Button";
+import { Timestamp } from "firebase/firestore";
 
 interface AccidentData {
+  reportTimeStamp: Timestamp;
   otherVehicleNumber: string;
-  date: string;
-  time: string;
+  accidentTimeStamp: string;
   accidentLocation: string;
   accidentDescription: string;
 }
 
 function ReportForm() {
   const [accidentData, setAccidentData] = useState<AccidentData>({
+    reportTimeStamp: Timestamp.now(),
     otherVehicleNumber: "",
-    date: "",
-    time: "",
+    accidentTimeStamp: "",
     accidentLocation: "",
     accidentDescription: "",
   });
@@ -59,10 +60,10 @@ function ReportForm() {
         </div>
         <div className="mb-4">
           <InputField
-            type="date"
+            type="datetime-local"
             label="Accident Date"
             name="date"
-            value={accidentData.date}
+            value={accidentData.accidentTimeStamp}
             onChange={handleInputChange}
             placeholder="Accident Date"
             required
@@ -73,7 +74,7 @@ function ReportForm() {
             type="time"
             label="Accident Time"
             name="accidentTime"
-            value={accidentData.time}
+            value={accidentData.accidentTimeStamp}
             onChange={handleInputChange}
             placeholder="Accident Time"
             required
