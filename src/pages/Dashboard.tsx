@@ -1,3 +1,4 @@
+import Button from "../components/Button";
 import Heading1 from "../components/Heading1";
 
 function Dashboard() {
@@ -15,6 +16,10 @@ function Dashboard() {
       <Heading1 className="text-center">Dashboard</Heading1>
 
       <p className="text-center">Welcome to the dashboard!</p>
+      <Button variant="secondary">Add Vehicle</Button>
+      <Button>Report Accident</Button>
+
+      <Button variant="secondary">View Vehicles</Button>
     </div>
   );
 }

@@ -2,9 +2,10 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-import { getFirestore } from "firebase/firestore";
-
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+
+// import { getStorage } from "firebase/storage";
 
 
 // import { getMessaging, getToken  } from "firebase/messaging";
@@ -24,11 +25,14 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
-export const db = getFirestore(app);
+export const db = initializeFirestore(app, 
+  {localCache: 
+    persistentLocalCache(/*settings*/{tabManager: persistentMultipleTabManager()})
+  });
 
 export const storage = getStorage(app);
 
-
+// export const storage = 
 
 function signInWithGoogle() {
   return signInWithPopup(auth, googleProvider)

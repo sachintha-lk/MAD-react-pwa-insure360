@@ -8,6 +8,7 @@ interface VehicleCardProps {
   model: string;
   year: string;
   make: string;
+  imageDownloadURL?: string;
 }
 
 function VehicleCard({
@@ -17,11 +18,16 @@ function VehicleCard({
   model,
   year,
   make,
+  imageDownloadURL,
 }: VehicleCardProps) {
   return (
     <div className="m-3 rounded-lg bg-white shadow-md">
       <a href="#!" className="block overflow-hidden rounded-t-lg">
-        <img className="h-40 w-full object-cover" src={carImage} alt="Car" />
+        <img
+          className="h-40 w-full object-cover"
+          src={imageDownloadURL || carImage}
+          alt="Car"
+        />
       </a>
       <div className="p-4">
         <h5 className="mb-2 text-xl font-semibold text-gray-800">
@@ -45,6 +51,8 @@ function VehicleCard({
             View Vehicle
           </Button>
           <Button className="mt-4">Report Accident {id}</Button>
+
+          {/* <Button className="mt-4">View Image</Button> */}
         </div>
       </div>
     </div>

@@ -35,7 +35,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
 
         <Route element={<PrivateRoutes />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/vehicles" element={<Vehicles />} />
           <Route path="/vehicles/new" element={<NewVehicle />} />
           <Route path="/report" element={<Report />} />

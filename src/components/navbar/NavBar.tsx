@@ -66,13 +66,13 @@ function NavBar() {
               onClick={handleMenuItemClick}
             />
           </li>
-          <li>
+          {/* <li>
             <NavBarLink
               to="/dashboard"
               children="Dashboard"
               onClick={handleMenuItemClick}
             />
-          </li>
+          </li> */}
           <li>
             <NavBarLink
               to="/vehicles"
@@ -141,7 +141,7 @@ function NavBar() {
             <div className="mr-5 text-2xl focus:outline-none md:hidden">X</div>
           )
         ) : (
-          <ul className="mr-10 flex space-x-4 ">{navLinks}</ul>
+          <ul className="mr-10 mt-3 flex space-x-4 ">{navLinks}</ul>
         )}
       </div>
       {isMobile && (

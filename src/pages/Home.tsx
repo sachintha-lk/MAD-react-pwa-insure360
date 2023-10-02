@@ -28,7 +28,7 @@ function Home() {
                 <div className="-mt-5 mb-8 sm:mb-0 md:mt-0">
                   Get the Protection You Need on the Road !
                 </div>
-                <div className="block h-28 sm:hidden" />
+                <div className="block h-28 sm:h-10" />
                 <strong className="mt-3 block text-5xl font-extrabold text-blue-800 md:text-5xl">
                   Your <span className="underline">Safety</span> <br /> Our
                   <span className="underline"> Priority!</span>
@@ -62,7 +62,7 @@ function Home() {
           </div>
         </section>
       </div>
-      <div className="mx-auto mt-10 grid w-10/12 grid-cols-1 gap-4 md:grid-cols-4">
+      <div className="mx-auto my-10 grid w-10/12 grid-cols-1 gap-4 md:grid-cols-4">
         <div
           className=" w-full max-w-3xl transform cursor-pointer rounded-xl bg-cover bg-center p-10 text-gray-100 duration-500 hover:-translate-y-1 xl:col-span-2"
           style={{
@@ -79,7 +79,7 @@ function Home() {
         </div>
 
         <div
-          className="w-full max-w-3xl transform cursor-pointer rounded-xl bg-cover bg-cover bg-center p-10 text-gray-100 duration-500 hover:-translate-y-1 xl:col-span-2"
+          className="w-full max-w-3xl transform cursor-pointer rounded-xl bg-cover bg-center p-10 text-gray-100 duration-500 hover:-translate-y-1 xl:col-span-2"
           style={{
             backgroundImage: `url(${carDesert})`,
             background:
@@ -103,6 +103,8 @@ function Home() {
               "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(" +
               carSunset +
               ")",
+            backgroundSize: "",
+            backgroundPosition: "center",
           }}
         >
           <h1 className="min-h-33 mt-5 text-4xl leading-snug  text-gray-100">
@@ -118,6 +120,7 @@ function Home() {
               "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url(" +
               wallet +
               ")",
+            backgroundPosition: "center",
           }}
         >
           <h1 className="min-h-33 mt-5 text-4xl leading-snug  text-gray-100">

@@ -3,12 +3,20 @@ import InputField from "./InputField";
 import Button from "./Button";
 import notificationIcon from "./../../public/icons/pwa-512x512.png";
 import { sendNotification } from "./../sendNotification";
+import { useNavigate } from "react-router-dom";
+
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthProvider";
 import TakePhoto from "./TakePhoto";
 import {
+  getDownloadURL,
   getStorage,
   ref,
   StorageReference,
@@ -28,6 +36,7 @@ interface VehicleData {
 // Add a new document in collection "cities"
 
 function NewVehicleForm() {
+  const navigate = useNavigate();
   const [vehicleData, setVehicleData] = useState({
     make: "",
     model: "",
@@ -72,6 +81,7 @@ function NewVehicleForm() {
 
   const handleImageUpload = async () => {
     const base64ImageString = imageData;
+
     const folderName = "vehicles";
     const fileName = `${
       vehicleData.registrationNumber
@@ -85,22 +95,67 @@ function NewVehicleForm() {
     );
 
     try {
+      console.log("check");
       await uploadString(imageRef, base64ImageString, "data_url");
       console.log("Uploaded the image successfully!");
-      return fileName;
+
+      const downloadURL = await getDownloadURL(imageRef);
+
+      console.log("Download URL:", downloadURL);
+
+      return downloadURL;
     } catch (error) {
       console.error("Error uploading the image:", error);
     }
   };
 
   const handleSubmitClick = async () => {
-    // save image to storage
-    if (imageData === "") {
-      alert("Please take a photo of your vehicle");
+    // check if the required fields are filled
+    if (
+      vehicleData.make === "" ||
+      vehicleData.model === "" ||
+      vehicleData.year === "" ||
+      vehicleData.registrationNumber === "" ||
+      vehicleData.vinNumber === "" ||
+      vehicleData.mileage === ""
+    ) {
+      console.log("Please fill all the required fields");
+      toast.error("Please fill all the required fields");
+
       return;
     }
 
-    const imageFileName = await handleImageUpload();
+    // confirm alert
+    confirmAlert({
+      title: "Confirm to submit",
+      message: "Are you sure to add this vehicle?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            console.log("Yes");
+            handleAddVehicle();
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            console.log("No");
+          },
+        },
+      ],
+    });
+  };
+
+  async function handleAddVehicle() {
+    // save image to storage
+    if (imageData === "") {
+      console.log("Please take a photo of your vehicle");
+      toast.error("Please take a photo of your vehicle");
+      return;
+    }
+
+    const imageDownloadUrl = await handleImageUpload();
 
     await addDoc(collection(db, "vehicles"), {
       creationTimeStamp: Timestamp.now(),
@@ -111,9 +166,10 @@ function NewVehicleForm() {
       registrationNumber: vehicleData.registrationNumber,
       vinNumber: vehicleData.vinNumber,
       mileage: vehicleData.mileage,
-      imageFileName: imageFileName,
+      imageDownloadURL: imageDownloadUrl,
     })
       .then(() => {
+        toast.success("Vehicle has been added successfully");
         sendNotification("Vehicle Added", {
           body: "Vehicle has been added successfully",
           icon: notificationIcon,
@@ -133,12 +189,17 @@ function NewVehicleForm() {
               vinNumber: "",
               mileage: "",
             });
+
+            setImageData("");
           });
+
+        // navigate to vehicles page
+        navigate("/vehicles");
       })
       .catch((error) => {
-        alert(error.message);
+        toast.error(error.message);
       });
-  };
+  }
 
   const inputFormWidth = "w-full";
   return (
@@ -223,14 +284,14 @@ function NewVehicleForm() {
 
         <Button
           onClick={() =>
-            sendNotification("Test Notification", {
-              body: "Notification body",
-              icon: notificationIcon,
+            handleImageUpload().then((fileName) => {
+              console.log("Image file name: ", fileName);
             })
           }
         >
           Display notification
         </Button>
+        <ToastContainer />
       </div>
     </div>
   );

@@ -9,9 +9,23 @@ export default defineConfig({
     registerType: 'autoUpdate',
     workbox: {
       globPatterns: ['**/*'],  // cache all the imports
-      // runtimeCaching: [
-      
-      // ],
+      runtimeCaching: [
+       
+        {
+          urlPattern: /^https:\/\/firebasestorage\.googleapis\.com/,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'firebase-storage-cache',
+            expiration: {
+              maxEntries: 300, 
+              maxAgeSeconds: 3 * 24 * 60 * 60, 
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }            
+          },
+        },
+      ],
     },  
     devOptions: {
       enabled: true

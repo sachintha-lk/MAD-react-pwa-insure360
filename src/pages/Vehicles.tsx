@@ -17,6 +17,7 @@ function Vehicles() {
       model: string;
       year: string;
       registrationNumber: string;
+      imageDownloadURL?: string;
     }[]
   >([]);
 
@@ -39,6 +40,7 @@ function Vehicles() {
           model: doc.data().model,
           year: doc.data().year,
           registrationNumber: doc.data().registrationNumber,
+          imageDownloadURL: doc.data().imageDownloadURL,
         },
       ]);
     });
@@ -80,6 +82,7 @@ function Vehicles() {
               model={vehicle.model}
               year={vehicle.year}
               registrationNumber={vehicle.registrationNumber}
+              imageDownloadURL={vehicle.imageDownloadURL}
             />
           ))}
       </div>
