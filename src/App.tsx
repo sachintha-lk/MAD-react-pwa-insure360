@@ -38,7 +38,8 @@ function App() {
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/vehicles" element={<Vehicles />} />
           <Route path="/vehicles/new" element={<NewVehicle />} />
-          <Route path="/report" element={<Report />} />
+          <Route path="/vehicles/:vehicleId/reports/" element={<Reports />} />
+          <Route path="/vehicles/:vehicleId/reports/new" element={<Report />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/newpolicy" element={<Dashboard />} />
         </Route>

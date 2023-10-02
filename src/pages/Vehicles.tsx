@@ -66,7 +66,7 @@ function Vehicles() {
       <Link to="/vehicles/new">
         <Button>Add a Vehicle</Button>
       </Link>
-      <div className=" mx-auto grid w-10/12 grid-cols-1 md:grid-cols-5">
+      <div className=" mx-auto grid w-10/12 grid-cols-1 md:grid-cols-4">
         {isLoading && (
           <div className="col-span-5 flex items-center justify-center">
             Loading...

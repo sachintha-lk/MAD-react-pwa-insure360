@@ -37,6 +37,7 @@ interface VehicleData {
 
 function NewVehicleForm() {
   const navigate = useNavigate();
+
   const [vehicleData, setVehicleData] = useState({
     make: "",
     model: "",
@@ -47,21 +48,6 @@ function NewVehicleForm() {
   } as VehicleData);
 
   const { user } = useContext(AuthContext)!;
-
-  // insurance
-  // registration
-  // inspection
-  // title
-  // bill of sale
-  // loan documents
-  // warranty
-  // maintenance records
-  // repair records
-  // accident reports
-  // police reports
-  // rental agreements
-  // lease agreements
-  // recall notices
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -74,7 +60,6 @@ function NewVehicleForm() {
   const [imageData, setImageData] = useState<string>("" as string);
 
   const handleImageCaptured = (imageData: string) => {
-    // Handle the captured image data here, e.g., set it in state
     console.log("Captured image data:", imageData);
     setImageData(imageData);
   };
@@ -167,6 +152,7 @@ function NewVehicleForm() {
       vinNumber: vehicleData.vinNumber,
       mileage: vehicleData.mileage,
       imageDownloadURL: imageDownloadUrl,
+      approved: true,
     })
       .then(() => {
         toast.success("Vehicle has been added successfully");
@@ -282,7 +268,7 @@ function NewVehicleForm() {
 
         <Button onClick={handleSubmitClick}>Add Vehicle</Button>
 
-        <Button
+        {/* <Button
           onClick={() =>
             handleImageUpload().then((fileName) => {
               console.log("Image file name: ", fileName);
@@ -290,7 +276,7 @@ function NewVehicleForm() {
           }
         >
           Display notification
-        </Button>
+        </Button> */}
         <ToastContainer />
       </div>
     </div>

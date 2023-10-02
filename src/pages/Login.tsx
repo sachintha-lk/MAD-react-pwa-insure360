@@ -7,6 +7,7 @@ import { Link, Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
 
 function Login() {
   const { user, setUser } = useContext(AuthContext)!;
@@ -23,10 +24,13 @@ function Login() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUser(userCredential.user);
-        <Navigate to="/dashboard" replace />;
+        // <Navigate to="/dashboard" replace />;
+        <Navigate to="/vehicles" replace />;
       })
       .catch((error) => {
         setErrorMessage(error.message);
+
+        toast.error(error.message);
       });
   };
 
@@ -91,6 +95,7 @@ function Login() {
           console.log(auth.currentUser?.email);
         }}
       ></button>
+      <ToastContainer />
     </div>
   );
 }

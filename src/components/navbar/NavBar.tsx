@@ -60,13 +60,13 @@ function NavBar() {
     <>
       {user ? (
         <>
-          <li>
+          {/* <li>
             <NavBarLink
               to="/test"
               children="Test"
               onClick={handleMenuItemClick}
             />
-          </li>
+          </li> */}
           {/* <li>
             <NavBarLink
               to="/dashboard"
@@ -81,13 +81,13 @@ function NavBar() {
               onClick={handleMenuItemClick}
             />
           </li>
-          <li>
+          {/* <li>
             <NavBarLink
               to="/reports"
               children="Reports"
               onClick={handleMenuItemClick}
             />
-          </li>
+          </li> */}
 
           <li className="block w-full px-4 py-2 text-center text-xl font-medium text-white md:text-blue-800">
             {user?.displayName || user.email}

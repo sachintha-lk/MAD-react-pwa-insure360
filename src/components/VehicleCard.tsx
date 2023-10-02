@@ -1,5 +1,6 @@
 import Button from "./Button";
 import carImage from "./../../public/images/car-vector.jpg";
+import { Link } from "react-router-dom";
 
 interface VehicleCardProps {
   id: string;
@@ -33,24 +34,34 @@ function VehicleCard({
         <h5 className="mb-2 text-xl font-semibold text-gray-800">
           {registrationNumber}
         </h5>
+        <p>Insurance Status:</p>
 
         {approved ? (
-          <p className=" text-base font-semibold text-green-600">Covered</p>
+          <span className="inline-block text-base font-semibold text-green-600">
+            Covered
+          </span>
         ) : (
-          <p className=" text-base font-semibold text-red-600">Not Covered</p>
+          <span className=" text-base font-semibold text-red-600">
+            Not Covered
+          </span>
         )}
-
         <p className="flex gap-2 text-base text-gray-600">
           <span>{make}</span>
           <span>{model}</span>
           <span>{year}</span>
         </p>
-
         <div className="grid grid-cols-2 gap-2">
-          <Button variant="secondary" className="mt-4">
-            View Vehicle
-          </Button>
-          <Button className="mt-4">Report Accident {id}</Button>
+          <Link to={`/vehicles/${id}/reports/`}>
+            <Button variant="secondary" className="mt-4">
+              View Vehicle
+            </Button>
+          </Link>
+
+          <Link to={`/vehicles/${id}/reports/new`}>
+            <Button variant="danger" className="mt-4">
+              Report Accident
+            </Button>
+          </Link>
 
           {/* <Button className="mt-4">View Image</Button> */}
         </div>
