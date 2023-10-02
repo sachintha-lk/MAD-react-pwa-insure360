@@ -1,12 +1,15 @@
-// Import the functions you need from the SDKs you need
+
 import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// import { getStorage } from "firebase/storage";
+
+
+// import { getMessaging, getToken  } from "firebase/messaging";
+
 const firebaseConfig = {
   apiKey: "AIzaSyCzLc7jfFA3RFld-s0WlThm1wa6rHAYzuo",
   authDomain: "insure-360-pwa.firebaseapp.com",
@@ -19,7 +22,60 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
 
-// export 
-export default app;
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
+export const db = initializeFirestore(app, 
+  {localCache: 
+    persistentLocalCache(/*settings*/{tabManager: persistentMultipleTabManager()})
+  });
+
+export const storage = getStorage(app);
+
+// export const storage = 
+
+function signInWithGoogle() {
+  return signInWithPopup(auth, googleProvider)
+    .then((result) => {
+      return result.user; 
+    })
+    .catch((error) => {
+      console.log("Error", error);
+      throw error;
+    });
+}
+
+// const messaging = getMessaging(app);
+// export const requestPermission = () => {
+//   console.log('Requesting permission...');
+//   Notification.requestPermission().then((permission) => {
+//     if (permission === 'granted') {
+//       console.log('Notification permission granted.');
+     
+//       getToken(messaging, 
+//         {vapidKey: "BCdkU0d9TBfELKYwp9VYDCT-p-Fq1Z5nfyMdhLJnv6zYUCRBUZUsReloFGYyqBTXBj6kjY9RhdTGeCQhII2q_sI" }
+//       ).then((currentToken) => {
+//         if (currentToken) {
+//           console.log('current token for client: ', currentToken);
+          
+//         } else {
+//           console.log('No registration token available. Request permission to generate one.');
+          
+//         }
+//       }
+//       ).catch((err) => {
+//         console.log('An error occurred while retrieving client token. ', err);
+      
+//       });
+//     }
+//   }
+//   ).catch((err) => {
+//     console.log('Unable to get permission to notify.', err);
+//   });
+// }
+
+
+
+export { signInWithGoogle };
+export default app;;
+

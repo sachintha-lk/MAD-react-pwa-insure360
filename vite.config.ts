@@ -4,48 +4,74 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(),  VitePWA({
+  plugins: [react(),  VitePWA(    
+    {
     registerType: 'autoUpdate',
+    workbox: {
+      globPatterns: ['**/*'],  // cache all the imports
+      runtimeCaching: [
+       
+        {
+          urlPattern: /^https:\/\/firebasestorage\.googleapis\.com/,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'firebase-storage-cache',
+            expiration: {
+              maxEntries: 300, 
+              maxAgeSeconds: 3 * 24 * 60 * 60, 
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }            
+          },
+        },
+      ],
+    },  
     devOptions: {
       enabled: true
     },
+    includeAssets: [
+      "**/*",
+    ],
+    
     manifest: {
       name: 'Insure 360',
       short_name: 'Insure360',
       description: 'Official insure 360 app',
       theme_color: '#cbcbcb',
+
       icons: [
         {
-          src: 'icons/android-chrome-192x192.png',
-          sizes: '192x192',
-          type: 'image/png',
-          purpose: 'any maskable'
-
+          src: 'icons/pwa-64x64.png',
+          sizes: '64x64',
+          type: 'image/png'
         },
         {
-          src: 'icons/android-chrome-512x512.png',
+          src: 'icons/pwa-192x192.png',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: 'icons/pwa-512x512.png',
           sizes: '512x512',
           type: 'image/png',
-          purpose: 'any maskable'
-        },
-
-        {
-          src: 'icons/favicon-16x16.png',
-          sizes: '16x16',
-          type: 'image/png',
-          purpose: 'any maskable'
+          purpose: 'any'  
         },
         {
-          src: 'icons/favicon-32x32.png',
-          sizes: '32x32',
+          src: 'icons/maskable-icon-512x512.png',
+          sizes: '512x512',
           type: 'image/png',
-          purpose: 'any maskable'
-
-        },
+          purpose: 'maskable'
+        }
       ],
+      scope: "/",
       start_url: "/",
-      display: "fullscreen",
-      background_color: "#B12A34"
-    }
+      display: "standalone",
+      background_color: "#284dff"
+    },
+   
   })],
+  server: {
+    port: 3000
+  }
 })
