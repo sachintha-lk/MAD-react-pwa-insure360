@@ -13,7 +13,7 @@ function Login() {
   const { user, setUser } = useContext(AuthContext)!;
 
   if (user) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/vehicles" replace />;
   }
 
   const [email, setEmail] = useState("");

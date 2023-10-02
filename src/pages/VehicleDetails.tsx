@@ -7,7 +7,7 @@ import Heading1 from "../components/Heading1";
 import Button from "../components/Button";
 import carImage from "./../../public/images/car-vector.jpg";
 
-function Reports() {
+function VehicleDetails() {
   const vehicleId = useParams<{ vehicleId: string }>();
   const [vehicleData, setVehicleData] = useState<{
     id: string;
@@ -177,4 +177,4 @@ function Reports() {
     </div>
   );
 }
-export default Reports;
+export default VehicleDetails;

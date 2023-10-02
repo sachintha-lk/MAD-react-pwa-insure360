@@ -13,7 +13,7 @@ function SignUp() {
   const { user, setUser } = useContext(AuthContext)!;
 
   if (user) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/vehicles" replace />;
   }
 
   const [email, setEmail] = useState("");
@@ -30,7 +30,7 @@ function SignUp() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUser(userCredential.user);
-        <Navigate to={"/dashboard"} replace />;
+        <Navigate to={"/vehicles"} replace />;
       })
       .catch((error) => {
         const errorCode = error.code;

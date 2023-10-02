@@ -190,8 +190,7 @@ function ReportForm() {
 
         setImageData("");
 
-        // navigate to reports page
-        navigate("/reports");
+        navigate("/vehicles");
       })
       .catch((error) => {
         toast.error(error.message);

@@ -19,7 +19,7 @@ function Button({
   ...props
 }: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   let buttonClassName =
-    "block px-12 mt-3 rounded-md px-5 py-3 font-medium text-md hover:shadow-sm";
+    "block px-12 mt-3 rounded-md px-5 py-3 font-medium text-md hover:shadow-sm transition duration-300 ease";
 
   switch (variant) {
     case "primary":
