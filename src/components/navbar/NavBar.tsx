@@ -12,14 +12,11 @@ function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const menuRef = useRef(null);
-  const menuBtnRef = useRef(null);
   const { user, setUser } = useContext(AuthContext)!;
 
   const handleClickOutside = () => {
     if (isMenuOpen) {
-      if (!menuBtnRef.current) {
-        toggleMenu();
-      }
+      setIsMenuOpen(false);
     }
   };
 
@@ -133,13 +130,16 @@ function NavBar() {
           <Link to="/" children={<LogoText />} />
         </div>
         {isMobile ? (
-          <button
-            ref={menuBtnRef}
-            className="mr-5 text-2xl focus:outline-none md:hidden"
-            onClick={toggleMenu}
-          >
-            {isMenuOpen ? "X" : "☰"}
-          </button>
+          !isMenuOpen ? (
+            <button
+              className="mr-5 text-2xl focus:outline-none md:hidden"
+              onClick={toggleMenu}
+            >
+              ☰
+            </button>
+          ) : (
+            <div className="mr-5 text-2xl focus:outline-none md:hidden">X</div>
+          )
         ) : (
           <ul className="mr-10 flex space-x-4 ">{navLinks}</ul>
         )}

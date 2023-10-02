@@ -12,12 +12,18 @@ import Vehicles from "./pages/Vehicles";
 import NewVehicle from "./pages/NewVehicle";
 import Reports from "./pages/Reports";
 import Report from "./pages/Report";
+import { useEffect } from "react";
 
 // import "./../public/firebase-messaging-sw.js";
 // import { requestPermission } from "./firebase.js";
 
 function App() {
-  // requestPermission();
+  useEffect(() => {
+    Notification.requestPermission().then((permission) => {
+      console.log("Notification permission: " + permission);
+    });
+  }, []);
+
   return (
     <div>
       <NavBar />

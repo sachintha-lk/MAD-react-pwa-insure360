@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import InputField from "./InputField";
 import Button from "./Button";
+import notificationIcon from "./../../public/icons/pwa-512x512.png";
+import { sendNotification } from "./../sendNotification";
 
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
@@ -112,15 +114,26 @@ function NewVehicleForm() {
       imageFileName: imageFileName,
     })
       .then(() => {
-        alert("Vehicle added successfully");
-        setVehicleData({
-          make: "",
-          model: "",
-          year: "",
-          registrationNumber: "",
-          vinNumber: "",
-          mileage: "",
-        });
+        sendNotification("Vehicle Added", {
+          body: "Vehicle has been added successfully",
+          icon: notificationIcon,
+        })
+          .then(() => {
+            console.log("Notification sent");
+          })
+          .catch((error) => {
+            console.error("Error sending notification:", error);
+          })
+          .finally(() => {
+            setVehicleData({
+              make: "",
+              model: "",
+              year: "",
+              registrationNumber: "",
+              vinNumber: "",
+              mileage: "",
+            });
+          });
       })
       .catch((error) => {
         alert(error.message);
@@ -128,7 +141,6 @@ function NewVehicleForm() {
   };
 
   const inputFormWidth = "w-full";
-  handleImageUpload();
   return (
     <div className="flex w-10/12 flex-col items-center justify-center md:w-5/12">
       <h2 className="text-2xl font-bold">Add New Vehicle</h2>
@@ -208,6 +220,17 @@ function NewVehicleForm() {
         <TakePhoto onImageCaptured={handleImageCaptured} />
 
         <Button onClick={handleSubmitClick}>Add Vehicle</Button>
+
+        <Button
+          onClick={() =>
+            sendNotification("Test Notification", {
+              body: "Notification body",
+              icon: notificationIcon,
+            })
+          }
+        >
+          Display notification
+        </Button>
       </div>
     </div>
   );

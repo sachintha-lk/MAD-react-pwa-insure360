@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
+
 import backgroundImage from "./../../public/images/background-image.jpg";
 import roadImage from "./../../public/images/road.jpg";
+import carSunset from "./../../public/images/car-sunset.jpg";
+import carDesert from "./../../public/images/car-desert.jpg";
+import wallet from "./../../public/images/wallet.jpg";
+
+import notificationIcon from "./../../public/icons/pwa-512x512.png";
+import { sendNotification } from "./../sendNotification";
 
 function Home() {
   return (
@@ -38,6 +45,13 @@ function Home() {
                   <Button>Get Started</Button>
                 </Link>
                 <Button
+                  onClick={() => {
+                    sendNotification("Let's Learn More! ", {
+                      body: "This is a test notification",
+                      icon: notificationIcon,
+                      badge: notificationIcon,
+                    });
+                  }}
                   variant="secondary"
                   className="border-solid border-gray-600"
                 >
@@ -53,6 +67,10 @@ function Home() {
           className=" w-full max-w-3xl transform cursor-pointer rounded-xl bg-cover bg-center p-10 text-gray-100 duration-500 hover:-translate-y-1 xl:col-span-2"
           style={{
             backgroundImage: `url(${roadImage})`,
+            background:
+              "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(" +
+              roadImage +
+              ")",
           }}
         >
           <h1 className="min-h-33 mt-5 text-4xl leading-snug  text-gray-100">
@@ -61,9 +79,15 @@ function Home() {
         </div>
 
         <div
-          className="w-full max-w-3xl transform cursor-pointer rounded-xl bg-cover bg-center p-10 text-gray-100 duration-500 hover:-translate-y-1 xl:col-span-2"
+          className="w-full max-w-3xl transform cursor-pointer rounded-xl bg-cover bg-cover bg-center p-10 text-gray-100 duration-500 hover:-translate-y-1 xl:col-span-2"
           style={{
-            backgroundImage: `url(${roadImage})`,
+            backgroundImage: `url(${carDesert})`,
+            background:
+              "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(" +
+              carDesert +
+              ")",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
           <h1 className="min-h-33 mt-5 text-4xl leading-snug  text-gray-100">
@@ -74,7 +98,11 @@ function Home() {
         <div
           className=" w-full max-w-3xl transform cursor-pointer rounded-xl bg-cover bg-center p-10 text-gray-100 duration-500 hover:-translate-y-1 xl:col-span-2"
           style={{
-            backgroundImage: `url(${roadImage})`,
+            backgroundImage: `url(${carSunset})`,
+            background:
+              "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(" +
+              carSunset +
+              ")",
           }}
         >
           <h1 className="min-h-33 mt-5 text-4xl leading-snug  text-gray-100">
@@ -85,7 +113,11 @@ function Home() {
         <div
           className=" w-full max-w-3xl transform cursor-pointer rounded-xl bg-cover bg-center p-10 text-gray-100 duration-500 hover:-translate-y-1 xl:col-span-2"
           style={{
-            backgroundImage: `url(${roadImage})`,
+            backgroundImage: `url(${wallet})`,
+            background:
+              "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url(" +
+              wallet +
+              ")",
           }}
         >
           <h1 className="min-h-33 mt-5 text-4xl leading-snug  text-gray-100">
