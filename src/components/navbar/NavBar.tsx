@@ -7,6 +7,7 @@ import { signOut } from "firebase/auth";
 import { useOnClickOutside } from "usehooks-ts";
 
 import { AuthContext } from "../../context/AuthProvider";
+import ReloadPrompt from "../../ReloadPrompt";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -154,6 +155,7 @@ function NavBar() {
           {navLinks}
         </ul>
       )}
+      <ReloadPrompt />
     </nav>
   );
 }
