@@ -23,6 +23,7 @@ function VehicleDetails() {
     {
       id: string;
       otherVehicleNumber: string;
+      imageDownloadURL?: string;
       locationInCoordinates: { latitude: number; longitude: number };
       locationName: string;
       accidentDescription: string;
@@ -76,12 +77,12 @@ function VehicleDetails() {
     getDocs(subColRef)
       .then((reports) => {
         console.log("reports:", reports);
-
         reports.forEach((doc) => {
           setReports((prev) => [
             ...prev,
             {
               id: doc.id,
+              imageDownloadURL: doc.data().imageDownloadUrl, // Url case differnece fix later
               otherVehicleNumber: doc.data().otherVehicleNumber,
               locationInCoordinates: doc.data().locationInCoordinates,
               locationName: doc.data().locationName,
@@ -114,10 +115,10 @@ function VehicleDetails() {
         {vehicleData?.registrationNumber} Vehicle Details
       </Heading1>
       <div className="w-10/12 md:w-6/12 ">
-        <div className="m-3 grid grid-cols-2 rounded-lg bg-white shadow-md">
+        <div className="m-3 grid grid-cols-1 rounded-lg bg-white shadow-md md:grid-cols-2">
           <a href="#!" className="block overflow-hidden rounded-t-lg">
             <img
-              className="h-full w-full object-cover"
+              className="h-40 w-full object-cover "
               src={vehicleData?.imageDownloadURL || carImage}
               alt="Car"
             />
@@ -139,7 +140,15 @@ function VehicleDetails() {
               <span>{vehicleData?.model}</span>
               <span>{vehicleData?.year}</span>
             </p>
-            <div className="grid grid-cols-2 gap-2">
+            <div
+              className="
+            mt-3
+            flex
+            items-center
+            justify-center
+
+            "
+            >
               <Link to={`/vehicles/${vehicleId.vehicleId}/reports/new`}>
                 <Button variant="danger" className="w-60">
                   Report Accident
@@ -166,6 +175,7 @@ function VehicleDetails() {
             <ReportCard
               key={report.id}
               id={report.id}
+              imageDownloadURL={report.imageDownloadURL}
               otherVehicleNumber={report.otherVehicleNumber}
               locationInCoordinates={report.locationInCoordinates}
               locationName={report.locationName}
